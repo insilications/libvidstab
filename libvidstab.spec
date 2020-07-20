@@ -4,10 +4,10 @@
 #
 %define keepstatic 1
 Name     : libvidstab
-Version  : 19.02.13
-Release  : 2
-URL      : /insilications/build/clearlinux/packages/libvidstab/libvidstab-19.02.13.zip
-Source0  : /insilications/build/clearlinux/packages/libvidstab/libvidstab-19.02.13.zip
+Version  : 1.1.0
+Release  : 3
+URL      : file:///insilications/build/clearlinux/packages/libvidstab/libvidstab-v1.1.0.zip
+Source0  : file:///insilications/build/clearlinux/packages/libvidstab/libvidstab-v1.1.0.zip
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-2.0
@@ -43,8 +43,8 @@ lib components for the libvidstab package.
 
 
 %prep
-%setup -q -n libvidstab-19.02.13
-cd %{_builddir}/libvidstab-19.02.13
+%setup -q -n libvidstab-v1.1.0
+cd %{_builddir}/libvidstab-v1.1.0
 
 %build
 ## build_prepend content
@@ -60,7 +60,7 @@ unset http_proxy
 unset https_proxy
 unset no_proxy
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1595267038
+export SOURCE_DATE_EPOCH=1595267624
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -99,7 +99,7 @@ make  %{?_smp_mflags}  V=1 VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1595267038
+export SOURCE_DATE_EPOCH=1595267624
 rm -rf %{buildroot}
 pushd clr-build
 %make_install
