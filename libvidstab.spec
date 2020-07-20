@@ -5,7 +5,7 @@
 %define keepstatic 1
 Name     : libvidstab
 Version  : 1.1.0
-Release  : 3
+Release  : 4
 URL      : file:///insilications/build/clearlinux/packages/libvidstab/libvidstab-v1.1.0.zip
 Source0  : file:///insilications/build/clearlinux/packages/libvidstab/libvidstab-v1.1.0.zip
 Summary  : No detailed summary available
@@ -60,7 +60,7 @@ unset http_proxy
 unset https_proxy
 unset no_proxy
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1595267624
+export SOURCE_DATE_EPOCH=1595267959
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -99,7 +99,7 @@ make  %{?_smp_mflags}  V=1 VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1595267624
+export SOURCE_DATE_EPOCH=1595267959
 rm -rf %{buildroot}
 pushd clr-build
 %make_install
