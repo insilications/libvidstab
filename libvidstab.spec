@@ -5,7 +5,7 @@
 %define keepstatic 1
 Name     : libvidstab
 Version  : 1.1.0
-Release  : 5
+Release  : 6
 URL      : file:///insilications/build/clearlinux/packages/libvidstab/libvidstab-v1.1.0.zip
 Source0  : file:///insilications/build/clearlinux/packages/libvidstab/libvidstab-v1.1.0.zip
 Summary  : No detailed summary available
@@ -71,7 +71,7 @@ unset http_proxy
 unset https_proxy
 unset no_proxy
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1596890513
+export SOURCE_DATE_EPOCH=1596891821
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -95,7 +95,7 @@ export RANLIB=gcc-ranlib
 export NM=gcc-nm
 #export CCACHE_DISABLE=1
 ## altflags1 end
-%cmake .. -DCMAKE_POSITION_INDEPENDENT_CODE=1 -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS_RELWITHDEBINFO="-O3 -g" -DCMAKE_CXX_FLAGS_RELWITHDEBINFO="-O3 -g" -DCMAKE_C_FLAGS_RELEASE="-O3 -g" -DCMAKE_CXX_FLAGS_RELEASE="-O3 -g" -DBUILD_STATIC_LIBS=1 -DBUILD_SHARED_LIBS=0 -DUSE_OMP=1 -DUSE_SSE2=1
+%cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS_RELWITHDEBINFO="-O3 -g" -DCMAKE_CXX_FLAGS_RELWITHDEBINFO="-O3 -g" -DCMAKE_C_FLAGS_RELEASE="-O3 -g" -DCMAKE_CXX_FLAGS_RELEASE="-O3 -g" -DBUILD_STATIC_LIBS=1 -DBUILD_SHARED_LIBS=0 -DUSE_OMP=1 -DUSE_SSE2=1
 ## make_prepend content
 #find . -type f -name 'link.txt' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
 #find . -type f -name 'cmake_link_script' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
@@ -140,7 +140,7 @@ export RANLIB=gcc-ranlib
 export NM=gcc-nm
 #export CCACHE_DISABLE=1
 ## altflags1 end
-%cmake .. -DCMAKE_POSITION_INDEPENDENT_CODE=1 -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS_RELWITHDEBINFO="-O3 -g" -DCMAKE_CXX_FLAGS_RELWITHDEBINFO="-O3 -g" -DCMAKE_C_FLAGS_RELEASE="-O3 -g" -DCMAKE_CXX_FLAGS_RELEASE="-O3 -g" -DBUILD_STATIC_LIBS=0 -DBUILD_SHARED_LIBS=1 -DUSE_OMP=1 -DUSE_SSE2=1
+%cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS_RELWITHDEBINFO="-O3 -g" -DCMAKE_CXX_FLAGS_RELWITHDEBINFO="-O3 -g" -DCMAKE_C_FLAGS_RELEASE="-O3 -g" -DCMAKE_CXX_FLAGS_RELEASE="-O3 -g" -DBUILD_STATIC_LIBS=0 -DBUILD_SHARED_LIBS=1 -DUSE_OMP=1 -DUSE_SSE2=1
 ## make_prepend content
 #find . -type f -name 'link.txt' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
 #find . -type f -name 'cmake_link_script' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
@@ -155,7 +155,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1596890513
+export SOURCE_DATE_EPOCH=1596891821
 rm -rf %{buildroot}
 pushd clr-build-special
 %make_install_special  || :
