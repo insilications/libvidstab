@@ -5,7 +5,7 @@
 %define keepstatic 1
 Name     : libvidstab
 Version  : 1.1.0
-Release  : 4
+Release  : 5
 URL      : file:///insilications/build/clearlinux/packages/libvidstab/libvidstab-v1.1.0.zip
 Source0  : file:///insilications/build/clearlinux/packages/libvidstab/libvidstab-v1.1.0.zip
 Summary  : No detailed summary available
@@ -13,7 +13,9 @@ Group    : Development/Tools
 License  : GPL-2.0
 Requires: libvidstab-lib = %{version}-%{release}
 BuildRequires : buildreq-cmake
+BuildRequires : findutils
 BuildRequires : orc-dev
+BuildRequires : orc-staticdev
 BuildRequires : pkg-config
 BuildRequires : pkgconfig(orc-0.4)
 # Suppress stripping binaries
@@ -42,25 +44,34 @@ Group: Libraries
 lib components for the libvidstab package.
 
 
+%package staticdev
+Summary: staticdev components for the libvidstab package.
+Group: Default
+Requires: libvidstab-dev = %{version}-%{release}
+
+%description staticdev
+staticdev components for the libvidstab package.
+
+
 %prep
 %setup -q -n libvidstab-v1.1.0
 cd %{_builddir}/libvidstab-v1.1.0
 
 %build
 ## build_prepend content
-find . -type f -name 'link.txt' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
-find . -type f -name 'cmake_link_script' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
-find . -type f -name 'CMakeLists*' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
-find . -type f -name '*.cmake' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
-find . -type f -name '*.make' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
-find . -type f -name 'flags.make' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
-find . -type f -name 'Makefile*' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
+#find . -type f -name 'link.txt' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
+#find . -type f -name 'cmake_link_script' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
+#find . -type f -name 'CMakeLists*' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
+#find . -type f -name '*.cmake' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
+#find . -type f -name '*.make' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
+#find . -type f -name 'flags.make' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
+#find . -type f -name 'Makefile*' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
 ## build_prepend end
 unset http_proxy
 unset https_proxy
 unset no_proxy
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1595267959
+export SOURCE_DATE_EPOCH=1596890513
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -84,23 +95,71 @@ export RANLIB=gcc-ranlib
 export NM=gcc-nm
 #export CCACHE_DISABLE=1
 ## altflags1 end
-%cmake .. -DSTATIC_LINK_CRT=1 -DCMAKE_C_FLAGS_RELWITHDEBINFO="-O3 -g" -DCMAKE_CXX_FLAGS_RELWITHDEBINFO="-O3 -g" -DCMAKE_C_FLAGS_RELEASE="-O3 -g" -DCMAKE_CXX_FLAGS_RELEASE="-O3 -g" -DBUILD_STATIC_LIBS:bool=ON -DBUILD_STATIC_LIBS=1  -DBUILD_STATIC_LIBS=1 -DENABLE_SHARED=1 -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=1 -DUSE_OMP=1 -DUSE_SSE2=1
+%cmake .. -DCMAKE_POSITION_INDEPENDENT_CODE=1 -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS_RELWITHDEBINFO="-O3 -g" -DCMAKE_CXX_FLAGS_RELWITHDEBINFO="-O3 -g" -DCMAKE_C_FLAGS_RELEASE="-O3 -g" -DCMAKE_CXX_FLAGS_RELEASE="-O3 -g" -DBUILD_STATIC_LIBS=1 -DBUILD_SHARED_LIBS=0 -DUSE_OMP=1 -DUSE_SSE2=1
 ## make_prepend content
-find . -type f -name 'link.txt' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
-find . -type f -name 'cmake_link_script' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
-find . -type f -name 'CMakeLists*' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
-find . -type f -name '*.cmake' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
-find . -type f -name '*.make' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
-find . -type f -name 'flags.make' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
-find . -type f -name 'Makefile*' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
-find . -type f -name '*.check_cache' -exec touch {} \;
+#find . -type f -name 'link.txt' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
+#find . -type f -name 'cmake_link_script' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
+#find . -type f -name 'CMakeLists*' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
+#find . -type f -name '*.cmake' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
+#find . -type f -name '*.make' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
+#find . -type f -name 'flags.make' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
+#find . -type f -name 'Makefile*' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
+#find . -type f -name '*.check_cache' -exec touch {} \;
 ## make_prepend end
-make  %{?_smp_mflags}  V=1 VERBOSE=1
+make  %{?_smp_mflags}
+popd
+mkdir -p clr-build-special
+pushd clr-build-special
+## build_prepend content
+#find . -type f -name 'link.txt' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
+#find . -type f -name 'cmake_link_script' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
+#find . -type f -name 'CMakeLists*' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
+#find . -type f -name '*.cmake' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
+#find . -type f -name '*.make' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
+#find . -type f -name 'flags.make' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
+#find . -type f -name 'Makefile*' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
+## build_prepend end
+export GCC_IGNORE_WERROR=1
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+## altflags1 content
+export CFLAGS="-g -O3 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now -Wl,-z,relro -falign-functions=32 -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -fno-math-errno -fno-semantic-interposition -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-vectorize -funroll-loops -fuse-ld=bfd -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flto=16 -fno-plt -mtls-dialect=gnu2 -Wl,-sort-common -Wno-error -Wp,-D_REENTRANT -pipe"
+# -ffat-lto-objects -fno-PIE -fno-PIE -m64 -no-pie -fpic -fvisibility=hidden  -fno-common
+# gcc: -feliminate-unused-debug-types -fipa-pta -flto=16 -Wno-error -Wp,-D_REENTRANT
+export CXXFLAGS="-g -O3 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now -Wl,-z,relro -falign-functions=32 -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -fno-math-errno -fno-semantic-interposition -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-vectorize -funroll-loops -fuse-ld=bfd -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flto=16 -fno-plt -mtls-dialect=gnu2 -Wl,-sort-common -Wno-error -Wp,-D_REENTRANT -fvisibility-inlines-hidden -pipe"
+#
+export FCFLAGS="-g -O3 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now -Wl,-z,relro -falign-functions=32 -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -fno-math-errno -fno-semantic-interposition -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-vectorize -funroll-loops -fuse-ld=bfd -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flto=16 -fno-plt -mtls-dialect=gnu2 -Wl,-sort-common -Wno-error -Wp,-D_REENTRANT -pipe"
+export FFLAGS="-g -O3 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now -Wl,-z,relro -falign-functions=32 -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -fno-math-errno -fno-semantic-interposition -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-vectorize -funroll-loops -fuse-ld=bfd -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flto=16 -fno-plt -mtls-dialect=gnu2 -Wl,-sort-common -Wno-error -Wp,-D_REENTRANT -pipe"
+export CFFLAGS="-g -O3 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now -Wl,-z,relro -falign-functions=32 -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -fno-math-errno -fno-semantic-interposition -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-vectorize -funroll-loops -fuse-ld=bfd -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flto=16 -fno-plt -mtls-dialect=gnu2 -Wl,-sort-common -Wno-error -Wp,-D_REENTRANT -pipe"
+#
+export LDFLAGS="-g -O3 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now -Wl,-z,relro -falign-functions=32 -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -fno-math-errno -fno-semantic-interposition -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-vectorize -funroll-loops -fuse-ld=bfd -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flto=16 -fno-plt -mtls-dialect=gnu2 -Wl,-sort-common -Wno-error -Wp,-D_REENTRANT -pipe"
+#
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+#export CCACHE_DISABLE=1
+## altflags1 end
+%cmake .. -DCMAKE_POSITION_INDEPENDENT_CODE=1 -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS_RELWITHDEBINFO="-O3 -g" -DCMAKE_CXX_FLAGS_RELWITHDEBINFO="-O3 -g" -DCMAKE_C_FLAGS_RELEASE="-O3 -g" -DCMAKE_CXX_FLAGS_RELEASE="-O3 -g" -DBUILD_STATIC_LIBS=0 -DBUILD_SHARED_LIBS=1 -DUSE_OMP=1 -DUSE_SSE2=1
+## make_prepend content
+#find . -type f -name 'link.txt' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
+#find . -type f -name 'cmake_link_script' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
+#find . -type f -name 'CMakeLists*' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
+#find . -type f -name '*.cmake' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
+#find . -type f -name '*.make' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
+#find . -type f -name 'flags.make' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
+#find . -type f -name 'Makefile*' -exec sed -i 's/\-fPIC/\-fpic/g' {} \;
+#find . -type f -name '*.check_cache' -exec touch {} \;
+## make_prepend end
+make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1595267959
+export SOURCE_DATE_EPOCH=1596890513
 rm -rf %{buildroot}
+pushd clr-build-special
+%make_install_special  || :
+popd
 pushd clr-build
 %make_install
 popd
@@ -132,3 +191,7 @@ popd
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libvidstab.so.1.1
+
+%files staticdev
+%defattr(-,root,root,-)
+/usr/lib64/libvidstab.a
