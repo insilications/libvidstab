@@ -4,10 +4,10 @@
 #
 %define keepstatic 1
 Name     : libvidstab
-Version  : 1.1.0
-Release  : 7
-URL      : file:///insilications/build/clearlinux/packages/libvidstab/libvidstab-v1.1.0.tar.gz
-Source0  : file:///insilications/build/clearlinux/packages/libvidstab/libvidstab-v1.1.0.tar.gz
+Version  : 1.1
+Release  : 8
+URL      : file:///insilications/build/clearlinux/packages/libvidstab/libvidstab-v1.1.tar.gz
+Source0  : file:///insilications/build/clearlinux/packages/libvidstab/libvidstab-v1.1.tar.gz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-2.0
@@ -72,7 +72,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1599677114
+export SOURCE_DATE_EPOCH=1600335065
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -162,7 +162,7 @@ make  %{?_smp_mflags}  V=1 VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1599677114
+export SOURCE_DATE_EPOCH=1600335065
 rm -rf %{buildroot}
 pushd clr-build-special
 %make_install_special  || :
